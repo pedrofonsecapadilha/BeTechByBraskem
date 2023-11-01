@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pedropadilha/code/BeTechByBraskem/08-ModelosProdutivosI/Aula06/mlruns/0/023b7f6731d9464db79c36a63a02ac23/artifacts
+end_time: 1698710863597
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 023b7f6731d9464db79c36a63a02ac23
+run_name: amusing-asp-404
+run_uuid: 023b7f6731d9464db79c36a63a02ac23
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1698710858401
+status: 4
+tags: []
+user_id: pedropadilha

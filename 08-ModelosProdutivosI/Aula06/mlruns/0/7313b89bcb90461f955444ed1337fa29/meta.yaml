@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pedropadilha/code/BeTechByBraskem/08-ModelosProdutivosI/Aula06/mlruns/0/7313b89bcb90461f955444ed1337fa29/artifacts
+end_time: 1698710783519
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7313b89bcb90461f955444ed1337fa29
+run_name: stately-sloth-941
+run_uuid: 7313b89bcb90461f955444ed1337fa29
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1698710773533
+status: 4
+tags: []
+user_id: pedropadilha

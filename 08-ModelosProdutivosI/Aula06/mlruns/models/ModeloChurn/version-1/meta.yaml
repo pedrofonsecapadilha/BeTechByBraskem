@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1698710878804
+current_stage: None
+description: null
+last_updated_timestamp: 1698710878804
+name: ModeloChurn
+run_id: f6d7275f995044f3889ea6fc8eeb6e02
+run_link: null
+source: file:///home/pedropadilha/code/BeTechByBraskem/08-ModelosProdutivosI/Aula06/mlruns/0/f6d7275f995044f3889ea6fc8eeb6e02/artifacts/modelo
+status: READY
+status_message: null
+storage_location: file:///home/pedropadilha/code/BeTechByBraskem/08-ModelosProdutivosI/Aula06/mlruns/0/f6d7275f995044f3889ea6fc8eeb6e02/artifacts/modelo
+user_id: null
+version: 1

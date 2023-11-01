@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pedropadilha/code/BeTechByBraskem/08-ModelosProdutivosI/Aula06/mlruns/0/f6d7275f995044f3889ea6fc8eeb6e02/artifacts
+end_time: 1698710878809
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f6d7275f995044f3889ea6fc8eeb6e02
+run_name: dashing-zebra-105
+run_uuid: f6d7275f995044f3889ea6fc8eeb6e02
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1698710874501
+status: 3
+tags: []
+user_id: pedropadilha
