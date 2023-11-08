@@ -5,10 +5,6 @@ import seaborn as sns
 import scipy.cluster.hierarchy as sch
 from sklearn.cluster import AgglomerativeClustering
 
-# st.markdown('''
-#             Isso é um Texto Simples **Isso é negrito** e *isso é itálico*.
-#             ''')
-
 st.title('Projeto Modelos Produtivos I')
 st.markdown('''
             Dataset: Young People Survey\n
@@ -27,9 +23,24 @@ st.title('!!! Análise do Festival de Música !!!')
 
 
 # Adicione controles deslizantes para hiperparâmetros
-n_clusters = st.slider('Número de Dias do Festival:', 1, 10, 4)
-affinity = st.selectbox('Hiperparametro - Affinity:', ['euclidean', 'manhattan', 'cosine'])
-linkage = st.selectbox('Hiperparametro - Linkage:', ['ward', 'complete', 'average', 'single'])
+n_clusters = st.slider('Número de Dias do Festival', 1, 6, 3)
+num_columns = st.slider('Número de Palcos no Festival', 1, 4, 3)
+affinity_help = '''
+                Affinity (afinidade): O parâmetro "affinity" define a função de afinidade que calcula a distância entre os pontos de dados.\n
+                Opções:\n
+                Euclidean (euclidiana): Usa a distância euclidiana padrão para calcular a proximidade entre pontos.\n
+                Manhattan (manhattan): Usa a distância de Manhattan, que é a soma das diferenças absolutas entre as coordenadas dos pontos.\n
+                Cosine (cosseno): Calcula a afinidade entre pontos de dados usando a medida de similaridade de cosseno. O cosseno é usado para avaliar a direção e a proximidade dos vetores que representam os pontos.
+            '''
+affinity = st.selectbox('Hiperparâmetro - Affinity:', ['euclidean', 'manhattan', 'cosine'], help=affinity_help)
+linkage_help = '''
+                Linkage (ligação): O parâmetro "linkage" define a métrica usada para medir a distância entre clusters durante o processo de aglomeração.\n
+                Opções:\n
+                Complete (completa): Usa a maior distância entre quaisquer dois pontos nos clusters para decidir como mesclá-los.\n
+                Average (média): Usa a média das distâncias entre todos os pontos nos clusters para decidir como mesclá-los.\n
+                Single (única): Usa a menor distância entre quaisquer dois pontos nos clusters para decidir como mesclá-los.
+            '''
+linkage = st.selectbox('Hiperparâmetro - Linkage:', ['complete', 'average', 'single'], help=linkage_help)
 
 # Botão para iniciar a simulação
 if st.button('Iniciar Simulação'):
@@ -46,18 +57,6 @@ if st.button('Iniciar Simulação'):
     dataset_with_clusters = musical_data.copy()
     dataset_with_clusters['clusters'] = agg_cl.labels_
 
-    # Calcular os clusters com base no dendrograma e no número de clusters escolhidos
-    linkage_matrix = sch.linkage(musical_data, method=linkage)
-
-    # Crie uma figura para o dendrograma com cores diferentes para o número de clusters
-    # plt.figure(figsize=(8, 6))
-    # dendrograma = sch.dendrogram(linkage_matrix, leaf_font_size=8, color_threshold=0)
-    # plt.title('Dendrograma')
-    # plt.xlabel('Gêneros Musicais')
-    # plt.ylabel('Distância')
-    # plt.xticks([])
-    # st.pyplot()
-
     # Define uma paleta de cores para as categorias de gêneros musicais
     genre_palette = sns.color_palette("Set1", n_colors=3)
 
@@ -65,22 +64,22 @@ if st.button('Iniciar Simulação'):
     for cluster in range(n_clusters):
         cluster_data = dataset_with_clusters[dataset_with_clusters['clusters'] == cluster]
         genre_counts = {}
-        
+
         for genre in musical_data.columns:
             genre_counts[genre] = cluster_data[genre].sum()
-        
-        top_genres = sorted(genre_counts, key=genre_counts.get, reverse=True)[:3]
-        
+
+        top_genres = sorted(genre_counts, key=genre_counts.get, reverse=True)[:num_columns]
+
         # Crie uma lista de cores da paleta para as categorias
-        genre_colors = [genre_palette[i % len(genre_palette)] for i in range(3)]
-        
+        genre_colors = sns.color_palette("Set1", n_colors=num_columns)
+
         cluster_genre_counts = pd.Series({genre: genre_counts[genre] for genre in top_genres})
-        
+
         # Criar um subplot para o gráfico do cluster
-        fig, ax = plt.subplots(figsize=(8, 6))
+        fig, ax = plt.subplots(figsize=(6, 3))
         cluster_genre_counts.plot(kind='bar', ax=ax, color=genre_colors)
-        plt.xlabel('Gênero Musical')
+
         plt.ylabel('Contagem')
-        plt.title(f'Gêneros Musicais - Dia {cluster+1}')
+        plt.title(f'Dia {cluster+1}\nGêneros Musicais')
         plt.xticks(rotation=45)
         st.pyplot(fig)
