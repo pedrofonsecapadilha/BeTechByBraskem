@@ -21,8 +21,6 @@ Para isso solicitou a nossa equipe para analisar os dados de seus usuários e pr
 
 st.title('!!! Análise do Festival de Música !!!')
 
-
-# Adicione controles deslizantes para hiperparâmetros
 n_clusters = st.slider('Número de Dias do Festival', 1, 6, 3)
 num_columns = st.slider('Número de Palcos no Festival', 1, 4, 3)
 affinity_help = '''
@@ -42,25 +40,19 @@ linkage_help = '''
             '''
 linkage = st.selectbox('Hiperparâmetro - Linkage:', ['complete', 'average', 'single'], help=linkage_help)
 
-# Botão para iniciar a simulação
 if st.button('Iniciar Simulação'):
-    # Carregue o conjunto de dados (substitua 'responses.csv' pelo caminho correto)
     df = pd.read_csv('responses.csv')
     musical_data = df[['Dance', 'Folk', 'Country', 'Classical music', 'Musical', 'Pop', 'Rock', 'Metal or Hardrock', 'Punk', 'Hiphop, Rap', 'Reggae, Ska', 'Swing, Jazz', 'Rock n roll', 'Alternative', 'Latino', 'Techno, Trance', 'Opera']]
     musical_data = musical_data.fillna(1)
 
-    # Execute o modelo AgglomerativeClustering com os hiperparâmetros selecionados
     agg_cl = AgglomerativeClustering(n_clusters=n_clusters, affinity=affinity, linkage=linkage)
     agg_cl.fit(musical_data)
 
-    # Copie os dados originais e adicione as labels de clusters
     dataset_with_clusters = musical_data.copy()
     dataset_with_clusters['clusters'] = agg_cl.labels_
 
-    # Define uma paleta de cores para as categorias de gêneros musicais
     genre_palette = sns.color_palette("Set1", n_colors=3)
 
-    # Itere pelos clusters e crie um gráfico para cada um deles com as barras coloridas dos três maiores gêneros
     for cluster in range(n_clusters):
         cluster_data = dataset_with_clusters[dataset_with_clusters['clusters'] == cluster]
         genre_counts = {}
@@ -70,12 +62,10 @@ if st.button('Iniciar Simulação'):
 
         top_genres = sorted(genre_counts, key=genre_counts.get, reverse=True)[:num_columns]
 
-        # Crie uma lista de cores da paleta para as categorias
         genre_colors = sns.color_palette("Set1", n_colors=num_columns)
 
         cluster_genre_counts = pd.Series({genre: genre_counts[genre] for genre in top_genres})
 
-        # Criar um subplot para o gráfico do cluster
         fig, ax = plt.subplots(figsize=(6, 3))
         cluster_genre_counts.plot(kind='bar', ax=ax, color=genre_colors)
 
